@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class subFileMenu {
 	
-	String path = "C:\\VirtualKey-Files";
+	String path = "directory/";
 	Scanner in=new Scanner(System.in);
 	
 	public void showMenu() {
@@ -62,7 +62,7 @@ public class subFileMenu {
         ArrayList<String> files = new ArrayList<String>(Arrays.asList(f.list()));
         
         for(String s:files) {
-        	if(s.equals(fileName+".txt")) {
+        	if(s.equals(fileName)) {
         		System.out.println("Found :" + fileName);
 				resultFile = true;
         	}
@@ -91,9 +91,8 @@ public class subFileMenu {
         fileName=in.next();
         
         System.out.println("Deleting file: " + fileName);
-        File file = new File(path+"\\"+fileName+".txt");
-       
-	      if (file.delete()) {
+        File file = new File(path+fileName);
+        if (file.delete()) {
 	    	  System.out.println("Deleted File: " + file.getName());
 
 	      } else {
@@ -110,7 +109,7 @@ public class subFileMenu {
         fileName=in.next();
         
         System.out.println("You are adding a file named: " + fileName);
-        File file = new File(path+"\\"+fileName+".txt");
+        File file = new File(path+fileName);
         
 		try {
 			

@@ -33,22 +33,15 @@ public class FileMenu {
 	}
 
 	private void showFiles() {
-		String path="C:\\VirtualKey-Files";
+		String path="directory/";
 		System.out.println("List of files:");
 		
 		File f = new File(path);
         ArrayList<String> files = new ArrayList<String>(Arrays.asList(f.list()));
         
         for(String s:files) {
-        	System.out.println(s);
-        }
-		
-		/*File[] file=new File(path).listFiles();
-		Arrays.sort(file);
-		for(File f: file) {
-			
-				System.out.println(f.getName());
-		}*/
+			System.out.println(s);
+		}
 		
 /*		File f=new File(path);
         ArrayList<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
