@@ -2,14 +2,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class subFileMenu {
 	
-	String path = "directory/";
-	Scanner in=new Scanner(System.in);
-	
+	String path = "directory/";     //To run in eclipse
+	//String path="C:\\Users\\nnaradasu\\eclipse-workspace\\VirtualKey\\directory\\";   //To run in my local cmd
+		
 	public void showMenu() {
 		
 		System.out.println("\nFile Options:");
@@ -18,20 +19,17 @@ public class subFileMenu {
 		System.out.println("3. Search a file");
 		System.out.println("4. Back");
 		
-		int choice=0;
-		choice=in.nextInt();
+		int choice=this.getOption();		
 		
 		switch(choice) {
 		case 1:
             addfile();
             this.showMenu();
-            break;
-            
+            break;            
         case 2:
         	deletefile();
             this.showMenu();
-            break;
-        
+            break;        
         case 3:
         	searchfile();
         	this.showMenu();
@@ -43,27 +41,23 @@ public class subFileMenu {
             System.out.println("Invalid choice. Please choose valid option.");
             this.showMenu();
             break;
-		}
-		
+		}		
 	}
 
 	private void searchfile() {
 		
 		Boolean resultFile = false;
-		String fileName;
-		
-    	System.out.println("Enter the Filename:");
-        fileName=in.next();
+		String fileName;		    	
+        fileName=getFileName();
         
         System.out.println("Searching for a file : " + fileName);
         
-        File f=new File(path);
-        
+        File f=new File(path);       
         ArrayList<String> files = new ArrayList<String>(Arrays.asList(f.list()));
         
         for(String s:files) {
         	if(s.equals(fileName)) {
-        		System.out.println("Found :" + fileName);
+        		System.out.println("Found the file:" + fileName);
 				resultFile = true;
         	}
         }
@@ -79,49 +73,62 @@ public class subFileMenu {
         
         if (resultFile == false) {
         	System.out.println("File not found");
-        }
-		
+        }	
 	}
 	
-	private void deletefile() {
+	private void deletefile() {		
 		
-		System.out.println("Enter the Filename:");
-
         String fileName;
-        fileName=in.next();
+        fileName=getFileName();
         
-        System.out.println("Deleting file: " + fileName);
+        System.out.println("Deleting a file : " + fileName);
         File file = new File(path+fileName);
+        
         if (file.delete()) {
-	    	  System.out.println("Deleted File: " + file.getName());
-
+	    	  System.out.println("Successfully deleted the file: " + file.getName());
 	      } else {
-	        System.out.println("Failed to delete file:" + fileName + "\n File Not Found.");
-	      }
-		
+	        System.out.println("Failed to delete file:" + fileName + "\nFile Not Found.");
+	      }		
 	}
 	
 	private void addfile() {
-		
-		System.out.println("Enter the Filename:");
 
         String fileName;
-        fileName=in.next();
+        fileName=getFileName();
         
-        System.out.println("You are adding a file named: " + fileName);
+        System.out.println("Adding a file: " + fileName);
         File file = new File(path+fileName);
         
-		try {
-			
+		try {			
 		      if (file.createNewFile()) {
-		    	  System.out.println("File created: " + file.getName());
-		    	   
+		    	  System.out.println("Successfully created the file: " + file.getName());	    	   
 		      } else {
-		        System.out.println("This File Already Exits. ");
+		        System.out.println("This File Already Exists. ");
 		      }
 		}catch (IOException e){
 			System.out.println(e);
-		}
+		}		
+	}
+	
+	private String getFileName() {
+
+		System.out.println("Enter the Filename:");
+        Scanner in = new Scanner(System.in); 
+		return(in.nextLine());
 		
 	}
+	
+	private int getOption() {
+		
+        Scanner in = new Scanner(System.in);
+        int option = 0;
+        try {
+            option = in.nextInt();
+        }
+        catch (InputMismatchException ex) {       	
+        }        
+        return option;
+    }
+
 }
+
